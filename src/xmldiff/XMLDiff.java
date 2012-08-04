@@ -31,7 +31,7 @@ public class XMLDiff {
         if(args.length < 1)
             System.out.println("Not enough arguments. To get help, use java -jar XMLDiff.jar help");
         else if(args[0].equals("help"))
-            System.out.println("\nUsage: java -jar XMLDiff oldfile.xml newfile.xml. Compares oldfile to newfile and writes differences into a file"
+            System.out.println("\nUsage: java -jar XMLDiff.jar oldfile.xml newfile.xml. Compares oldfile to newfile and writes differences into a file"
                     + "\n\nUsage: java -jar XMLDiff oldfile.xml newfile.xml exclude.xml. Excludes selected values"
                     + "\n\nCompatible tags:"
                     + "\n\n -> <string name=\"*\">*</string>"
@@ -73,7 +73,7 @@ public class XMLDiff {
                         id = l.substring(l.indexOf(HEADERS[0])+HEADERS[0].length(), nthOccurrence(l, (char) '"', 1));
                         break;
                     default:
-                        throw new IllegalArgumentException("Invalid type. See java -jar XMLDiff help");
+                        throw new IllegalArgumentException("Invalid type. See java -jar XMLDiff.jar help");
                         
                 }
                 for(int i=0; i<o.size()-1; i++){
