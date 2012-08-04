@@ -17,7 +17,6 @@
 package xmldiff;
 
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * @author D4rKn3sSyS @ XDA-developers
