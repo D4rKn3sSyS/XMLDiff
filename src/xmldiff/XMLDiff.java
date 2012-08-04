@@ -131,7 +131,6 @@ public class XMLDiff {
         try{
             ArrayList <String> lines = new ArrayList();
             FileInputStream fis = new FileInputStream(input);
-            System.out.println(input);
             InputStreamReader is = new InputStreamReader(fis, "UTF-8");
             BufferedReader br = new BufferedReader(is);
             while (br.readLine() != null){
