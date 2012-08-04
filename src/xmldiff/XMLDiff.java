@@ -36,13 +36,13 @@ public class XMLDiff {
                     + "\n\nCompatible tags:"
                     + "\n\n -> <string name=\"*\">*</string>");
         else if(args.length == 2){
-            ArrayList <String> oldText = fileToArrayList(args[0]);
-            ArrayList <String> newText = fileToArrayList(args[1]);
+            String[] oldText = fileToArray(args[0]);
+            String[] newText = fileToArray(args[1]);
             String diff = getDiff(oldText, newText);
             writeFile(diff);
         } else if(args.length == 3){
-            ArrayList <String> oldText = fileToArrayList(args[0]);
-            ArrayList <String> newText = fileToArrayList(args[1]);
+            String[] oldText = fileToArray(args[0]);
+            String[] newText = fileToArray(args[1]);
             String exclude = fileToString(args[2]);
             String diff = getDiff(oldText, newText, exclude);
             writeFile(diff);
@@ -50,14 +50,14 @@ public class XMLDiff {
             throw new IllegalArgumentException("Too many arguments");
     }
     
-    private static String getDiff(ArrayList <String> o, ArrayList <String> n){
+    private static String getDiff(String[] o, String[] n){
         return getDiff(o, n, null);
     }
     
-    private static String getDiff(ArrayList <String> o, ArrayList <String> n, String e){
+    private static String getDiff(String[] o, String[] n, String e){
         String diff = "";
-        for(int j=0; j<n.size()-1; j++){
-            String l = n.get(j);
+        for(int j=0; j<n.length-1; j++){
+            String l = n[j];
             if(findMatches(l, HEADERS)){
                 String id;
                 int type = 0;
@@ -74,8 +74,8 @@ public class XMLDiff {
                         throw new IllegalArgumentException("Invalid type. See java -jar XMLDiff.jar help");
                         
                 }
-                for(int i=0; i<o.size()-1; i++){
-                    String l2 = o.get(i);
+                for(int i=0; i<o.length-1; i++){
+                    String l2 = o[i];
                     if(l2.contains(id) && !diff.contains(id)){
                         if(e == null)
                             diff += l2 + "\n";
@@ -108,6 +108,10 @@ public class XMLDiff {
         return pos;
     }
     
+    private static String[] fileToArray(String input){
+        return fileToString(input).split("\n");
+    }
+    
     private static String fileToString(String input){
         String text="";
         int read, N = 1024*1024;
@@ -122,27 +126,9 @@ public class XMLDiff {
                     break;
             }
         } catch(Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Error while loading selected file: " + ex.getMessage());
         }
         return text;
-    }
-    
-    private static ArrayList<String> fileToArrayList(String input){
-        try{
-            ArrayList <String> lines = new ArrayList();
-            FileInputStream fis = new FileInputStream(input);
-            InputStreamReader is = new InputStreamReader(fis, "UTF-8");
-            BufferedReader br = new BufferedReader(is);
-            while (br.readLine() != null){
-                lines.add(br.readLine());
-            }
-            is.close();
-            return lines;
-        }catch (IOException e){
-            System.err.println("Error while loading selected file: " + e.getMessage());
-            System.exit(0);
-        }
-        return null;
     }
 
     private static void writeFile(String diff) {
