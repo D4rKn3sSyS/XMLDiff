@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class XMLDiff {
 
-    private static final String[] HEADERS = {"<string name=\"", "<string-array name=\"", "<integer-array name=\"", "<item>"};
+    private static final String[] HEADERS = {"<string name=\""};
     private static final int STRING = 1;
     
     public static void main(String[] args) {
@@ -34,9 +34,7 @@ public class XMLDiff {
             System.out.println("\nUsage: java -jar XMLDiff.jar oldfile.xml newfile.xml. Compares oldfile to newfile and writes differences into a file"
                     + "\n\nUsage: java -jar XMLDiff oldfile.xml newfile.xml exclude.xml. Excludes selected values"
                     + "\n\nCompatible tags:"
-                    + "\n\n -> <string name=\"*\">*</string>"
-                    /*+ "\n -> <string-array name=\"*\">*</string-array>"
-                    + "\n -> <integer-array name=\"*\">*</integer-array>"*/);
+                    + "\n\n -> <string name=\"*\">*</string>");
         else if(args.length == 2){
             ArrayList <String> oldText = fileToArrayList(args[0]);
             ArrayList <String> newText = fileToArrayList(args[1]);
@@ -133,6 +131,7 @@ public class XMLDiff {
         try{
             ArrayList <String> lines = new ArrayList();
             FileInputStream fis = new FileInputStream(input);
+            System.out.println(input);
             InputStreamReader is = new InputStreamReader(fis, "UTF-8");
             BufferedReader br = new BufferedReader(is);
             while (br.readLine() != null){
