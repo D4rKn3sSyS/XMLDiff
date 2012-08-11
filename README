@@ -1,0 +1,18 @@
+What's XMLDiff?
+===============
+
+It's a simple java tool to port translations based on new / old XML's. Works only on strings.xml for now.
+
+Usage is something like
+
+java -jar XMLDiff.jar old.xml new.xml
+-------------------------------------
+
+There's also an extra argument to exclude certain values that already exists
+ on current branch languages (Mostly like is the one that should be used)
+
+java -jar XMLDiff.jar old.xml new.xml excluded.xml
+--------------------------------------------------
+
+For example: java -jar XMLDiff.jar values-ES-ics.xml values-EN.xml values-ES-jellybean.xml
+             -----------------------------------------------------------------------------
